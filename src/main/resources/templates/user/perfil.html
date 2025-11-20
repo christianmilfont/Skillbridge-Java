@@ -1,0 +1,12 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: header"><body><div th:replace="fragments/menu :: menu"></div>
+<h1>Meu Perfil</h1><p>Nome: <span th:text="${perfil.usuario.nome}"></span></p><p>Email: <span th:text="${perfil.usuario.email}"></span></p><p>Resumo: <span th:text="${perfil.resumo}"></span></p>
+<h2>Competências:</h2><table>
+    <tr>
+        <th>Competência</th>
+        <th>Nível</th>
+    </tr>
+    <tr th:each="uc : ${perfil.usuarioCompetencias}">
+        <td th:text="${uc.competencia.nome}"></td>
+        <td th:text="${uc.nivelPontuacao}"></td>
+    </tr></table>
+<div th:replace="fragments/footer :: footer"></div></body></html>

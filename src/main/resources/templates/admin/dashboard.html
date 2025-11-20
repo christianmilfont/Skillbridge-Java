@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header"></head>
+
+<body>
+
+<!-- MENU -->
+<div th:replace="fragments/menu :: menu"></div>
+
+<style>
+    body {
+        background: #f3f6fa;
+        font-family: Arial, sans-serif;
+    }
+
+    .admin-container {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .admin-title {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2a4d69;
+        margin-bottom: 10px;
+    }
+
+    .admin-subtitle {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 35px;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 10px;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .card a {
+        text-decoration: none;
+        color: #2a4d69;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .card p {
+        color: #666;
+        margin-top: 8px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="admin-container">
+
+    <h1 class="admin-title">Painel do Administrador</h1>
+    <p class="admin-subtitle">Gerencie usuários, vagas, cursos e competências do sistema</p>
+
+    <div class="cards">
+
+        <div class="card">
+            <a th:href="@{/admin/usuarios}">👥 Usuários</a>
+            <p>Gerencie contas, permissões e dados dos usuários.</p>
+        </div>
+
+        <div class="card">
+            <a th:href="@{/admin/vagas}">💼 Vagas</a>
+            <p>Controle vagas cadastradas e disponibilidade no sistema.</p>
+        </div>
+
+        <div class="card">
+            <a th:href="@{/admin/cursos}">📚 Cursos</a>
+            <p>Adicione, edite e acompanhe conteúdo educacional.</p>
+        </div>
+
+        <div class="card">
+            <a th:href="@{/admin/competencias}">⭐ Competências</a>
+            <p>Administre habilidades e requisitos do SkillBridge.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

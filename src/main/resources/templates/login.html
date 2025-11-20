@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            width: 320px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 22px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #357ac8;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <h1>Login</h1>
+
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label>Email:</label>
+            <input type="email" name="username" placeholder="Digite seu email" required/>
+        </div>
+
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Digite sua senha" required/>
+        </div>
+
+        <div>
+            <button type="submit">Entrar</button>
+        </div>
+    </form>
+
+    <!-- fragments/footer.html -->
+    <div th:fragment="footer">
+        <footer>
+            <p>&copy; 2025. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>

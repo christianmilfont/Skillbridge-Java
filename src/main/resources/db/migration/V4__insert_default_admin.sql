@@ -1,0 +1,1 @@
+INSERT INTO USUARIOS (NOME, EMAIL, SENHA_HASH,ROLE) VALUES('Admin', 'admin@dominio.com', '$2a$12$ku9oGLBMmyhT4KTDUz5/nOgca.TkMBdOusjFDf0zpgjPSUaPRVgja','ADMIN');  -- gerar hash de senha via bcrypt

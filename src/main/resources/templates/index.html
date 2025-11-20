@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SkillBridge - Home</title>
+
+    <style>
+        body { font-family: Arial; background: #f1f1f1; text-align: center; }
+        header { background: #2a4d69; color: white; padding: 18px; }
+        .btn { padding: 14px 26px; margin: 10px; background: #4CAF50;
+               color: white; border-radius: 6px; text-decoration: none;
+               display: inline-block; transition: .2s; }
+        .btn:hover { background: #3d8b40; }
+        .btn-danger { background: #d9534f; }
+        .btn-danger:hover { background: #b52b27; }
+        .container { margin-top: 45px; }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Bem-vindo ao SkillBridge</h1>
+    <p>Conectando talentos às melhores oportunidades</p>
+</header>
+
+<div class="container">
+
+    <!-- VISÍVEL PARA QUEM NÃO ESTÁ LOGADO -->
+    <div sec:authorize="isAnonymous()">
+        <h2>Comece sua jornada</h2>
+        <a class="btn" th:href="@{/login}">Entrar</a>
+        <a class="btn" th:href="@{/register}">Criar Conta</a>
+        <a class="btn" th:href="@{/minhas_vagas}">Ver Vagas</a>
+    </div>
+
+    <!-- VISÍVEL PARA USUÁRIOS AUTENTICADOS -->
+    <div sec:authorize="isAuthenticated()">
+
+        <h2>Bem-vindo, <span sec:authentication="name"></span>!</h2>
+        <div sec:authorize="hasRole('USER')">
+        <a class="btn" th:href="@{/user/board}">Área do Usuário</a>
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a class="btn" th:href="@{/admin/dashboard}">Área Administrativa</a>
+        </div>
+
+
+        <a class="btn" th:href="@{user/minhas_vagas}">Ver Vagas</a>
+
+        <a class="btn btn-danger" th:href="@{/logout}">Sair</a>
+    </div>
+
+</div>
+
+<footer style="margin-top: 40px;">
+    <p>&copy; 2025 SkillBridge</p>
+</footer>
+
+</body>
+</html>

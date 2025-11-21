@@ -20,7 +20,13 @@ public class UserController {
     public UserController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
+        @GetMapping("/lista")
+        public String listarUsuarios(Model model) {
+            // Recupera todos os usuários
+            var usuarios = usuarioService.buscarTodos();
+            model.addAttribute("usuarios", usuarios);
+            return "admin/usuarios"; // Template Thymeleaf
+        }
     // Exibe ou edita o perfil do usuário
     @GetMapping("/perfil")
     public String perfil(Model model) {

@@ -34,7 +34,9 @@ public class UsuarioService {
     public boolean existsByEmail(String email) {
         return repository.findByEmail(email).isPresent();
     }
-
+    public List<Usuario> buscarTodos() {
+        return usuarioRepository.findAll();
+    }
     // Lista todos
     public List<Usuario> listar() {
         return repository.findAll();

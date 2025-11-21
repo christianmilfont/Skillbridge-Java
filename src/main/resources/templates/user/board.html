@@ -151,6 +151,7 @@
                 <td th:text="${vaga.compatibilidade}"></td>
             </tr>
         </table>
+        <a class="btn" th:href="@{/user/perfil}">Ver Vagas</a> 
 
         <!-- Caso não exista lista -->
         <p th:if="${todasVagas == null or todasVagas.isEmpty()}" style="font-size: 18px; color: #d9534f;">
@@ -158,7 +159,7 @@
         </p>
 
         <!-- Botão para ver vagas -->
-        <a class="btn" th:href="@{/vagas/listar}">Ver Vagas</a>
+        <a class="btn" th:href="@{/view/analise}">Ver Vagas</a>
 
     </div>
 

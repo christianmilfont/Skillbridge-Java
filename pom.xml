@@ -128,10 +128,10 @@
             <artifactId>spring-ai-core</artifactId>
         </dependency>
 
-        <!-- SPRING AI + OPENAI -->
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        <!-- SPRING AI + Google -->
+       <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
     </dependencies>

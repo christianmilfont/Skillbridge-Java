@@ -16,7 +16,7 @@ import java.util.List;
         return repository.save(curso);
     }
 
-    public List<Curso> listar() {
+    public List<Curso> buscarTodos() {
         return repository.findAll();
     }
 

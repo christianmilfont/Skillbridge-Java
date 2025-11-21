@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Cursos</h1>
+    <a class="btn" th:href="@{/admin/cursos/novo}">Novo Curso</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Duração (h)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="curso : ${cursos}">
+                <td th:text="${curso.id}">1</td>
+                <td th:text="${curso.titulo}">Curso</td>
+                <td th:text="${curso.descricao}">Descrição</td>
+                <td th:text="${curso.duracaoHoras}">10</td>
+                <td>
+                    <a class="btn" th:href="@{'/admin/cursos/editar/' + ${curso.id}}">Editar</a>
+                    <a class="btn btn-danger" th:href="@{'/admin/cursos/deletar/' + ${curso.id}}">Deletar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

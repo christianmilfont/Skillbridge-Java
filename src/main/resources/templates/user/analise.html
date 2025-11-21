@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Compatibilidade</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2c3e50; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; text-align: left; }
+        tr:hover { background-color: #f9f9f9; }
+        .melhor { background-color: #dff0d8; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Análise de Compatibilidade</h1>
+
+    <div th:each="candidato : ${candidatos}">
+        <h2 th:text="${candidato.nome} + ' (ID: ' + ${candidato.id} + ')'"></h2>
+
+        <h3>Melhor Vaga</h3>
+        <table>
+            <tr>
+                <th>Vaga ID</th>
+                <th>Título</th>
+                <th>Compatibilidade</th>
+            </tr>
+            <tr class="melhor">
+                <td th:text="${candidato.melhor_vaga.vaga_id}"></td>
+                <td th:text="${candidato.melhor_vaga.vaga_nome}"></td>
+                <td th:text="${candidato.melhor_vaga.compatibilidade + '%'}"></td>
+            </tr>
+        </table>
+
+        <h3>Todas as Vagas</h3>
+        <table>
+            <tr>
+                <th>Vaga ID</th>
+                <th>Título</th>
+                <th>Compatibilidade</th>
+            </tr>
+            <tr th:each="vaga : ${candidato.todas_as_vagas}">
+                <td th:text="${vaga.vaga_id}"></td>
+                <td th:text="${vaga.vaga_nome}"></td>
+                <td th:text="${vaga.compatibilidade + '%'}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

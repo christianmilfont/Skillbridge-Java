@@ -1,0 +1,13 @@
+<div class="container">
+    <h1 th:text="${curso.id} != null ? 'Editar Curso' : 'Novo Curso'">Novo Curso</h1>
+    <form th:action="@{/admin/cursos/salvar}" th:object="${curso}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <label>Título</label>
+        <input type="text" th:field="*{titulo}" required/>
+        <label>Descrição</label>
+        <textarea th:field="*{descricao}"></textarea>
+        <label>Duração (horas)</label>
+        <input type="number" th:field="*{duracaoHoras}" step="0.1"/>
+        <button type="submit" class="btn">Salvar</button>
+    </form>
+</div>

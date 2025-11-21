@@ -49,7 +49,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
                 "http://10.3.63.34:19000",      // Expo
                 "http://localhost:8081",       // web dev
-                "https://skillbridge-java-production.up.railway.app" // railway
+                "https://skillbridge-java-production-8217.up.railway.app" // railway
         ));
 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

@@ -20,6 +20,7 @@ public class AnaliseService {
         return pythonService.buscarAnaliseDoPython(); // retorna o JSON do Flask
     }
 
+    
     public void sincronizarAnalisePython() {
         IoTResponseWrapperDTO wrapper = pythonService.buscarAnaliseDoPython();
 
@@ -28,8 +29,8 @@ public class AnaliseService {
                 IoTResponseDTO dto = new IoTResponseDTO();
                 dto.setId(candidato.getId());
                 dto.setNome(candidato.getNome());
-                dto.setMelhor_vaga(candidato.getMelhor_vaga());
-                dto.setTodas_as_vagas(candidato.getTodas_as_vagas());
+                dto.setMelhor_vaga(candidato.getMelhor_vaga());          
+                dto.setTodas_as_vagas(candidato.getTodas_as_vagas());    
 
                 ioTService.processarDadosDoIoT(dto);
             }

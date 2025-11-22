@@ -1,11 +1,9 @@
 package com.example.SkillBridge.service;
-import org.springframework.stereotype.Service;
-import com.example.SkillBridge.dto.IoTResponseWrapperDTO;
-import com.example.SkillBridge.service.PythonIntegrationService;
-import com.example.SkillBridge.service.IoTService;
+
 import com.example.SkillBridge.dto.CandidatoDTO;
 import com.example.SkillBridge.dto.IoTResponseDTO;
-
+import com.example.SkillBridge.dto.IoTResponseWrapperDTO;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AnaliseService {
@@ -18,13 +16,22 @@ public class AnaliseService {
         this.ioTService = ioTService;
     }
 
+    public IoTResponseWrapperDTO buscarAnalisePython() {
+        return pythonService.buscarAnaliseDoPython(); // retorna o JSON do Flask
+    }
+
     public void sincronizarAnalisePython() {
         IoTResponseWrapperDTO wrapper = pythonService.buscarAnaliseDoPython();
 
         if (wrapper != null && wrapper.getCandidatos() != null) {
-            for (var candidato : wrapper.getCandidatos()) {
-                // transforma CandidatoDTO em IoTResponseDTO para reaproveitar o service
-                ioTService.processarDadosDoIoT(candidato);
+            for (CandidatoDTO candidato : wrapper.getCandidatos()) {
+                IoTResponseDTO dto = new IoTResponseDTO();
+                dto.setId(candidato.getId());
+                dto.setNome(candidato.getNome());
+                dto.setMelhor_vaga(candidato.getMelhor_vaga());
+                dto.setTodas_as_vagas(candidato.getTodas_as_vagas());
+
+                ioTService.processarDadosDoIoT(dto);
             }
         }
     }

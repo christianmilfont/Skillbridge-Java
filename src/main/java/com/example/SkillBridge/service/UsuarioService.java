@@ -35,7 +35,7 @@ public class UsuarioService {
         return repository.findByEmail(email).isPresent();
     }
     public List<Usuario> buscarTodos() {
-        return usuarioRepository.findAll();
+        return repository.findAll();
     }
     // Lista todos
     public List<Usuario> listar() {

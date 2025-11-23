@@ -29,7 +29,7 @@ public class IoTController {
 
     @GetMapping("/sincronizar")
     public ResponseEntity<String> sincronizar() {
-        analiseService.sincronizarAnalisePython();
+        analiseService.sincronizarAnalise();
         return ResponseEntity.ok("Dados sincronizados com sucesso!");
     }
 }

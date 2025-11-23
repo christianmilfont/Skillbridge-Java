@@ -1,8 +1,6 @@
 package com.example.SkillBridge.service;
 
-import com.example.SkillBridge.dto.CandidatoDTO;
-import com.example.SkillBridge.dto.IoTResponseDTO;
-import com.example.SkillBridge.dto.IoTResponseWrapperDTO;
+import com.example.SkillBridge.dto.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +15,7 @@ public class AnaliseService {
     }
 
     public IoTResponseWrapperDTO buscarAnaliseLocal() {
-        return ioTService.buscarDadosDoIoT(); // agora os dados vêm do próprio IoTService
+        return ioTService.buscarDadosDoIoT();
     }
 
     public IoTResponseWrapperDTO sincronizarAnalise() {
@@ -28,22 +26,26 @@ public class AnaliseService {
 
             for (CandidatoDTO candidato : wrapper.getCandidatos()) {
 
+                // Converter melhor vaga (VagaCompatibilidadeDTO → MelhorVagaDTO)
+                MelhorVagaDTO melhor = new MelhorVagaDTO();
+                melhor.setVagaId(candidato.getMelhorVaga().getVagaId());
+                melhor.setVagaNome(candidato.getMelhorVaga().getVagaNome());
+                melhor.setCompatibilidade(candidato.getMelhorVaga().getCompatibilidade());
+
                 IoTResponseDTO dto = new IoTResponseDTO();
                 dto.setId(candidato.getId());
                 dto.setNome(candidato.getNome());
-                dto.setMelhorVaga(candidato.getMelhorVaga());
+                dto.setMelhorVaga(melhor); // agora o tipo está correto
                 dto.setTodasAsVagas(candidato.getTodasAsVagas());
 
                 // Geração de descrição pela IA
-                if (candidato.getMelhorVaga() != null) {
+                String descricao = aiService.gerarDescricaoMelhorVaga(
+                        melhor.getVagaNome(),
+                        melhor.getCompatibilidade()
+                );
 
-                    String titulo = candidato.getMelhorVaga().getVagaNome();
-                    int compatibilidade = candidato.getMelhorVaga().getCompatibilidade();
-
-                    String descricao = aiService.gerarDescricaoMelhorVaga(titulo, compatibilidade);
-
-                    candidato.getMelhorVaga().setDescricao(descricao);
-                }
+                melhor.setDescricao(descricao);
+                dto.setDescricao(descricao);
 
                 ioTService.processarDadosDoIoT(dto);
             }

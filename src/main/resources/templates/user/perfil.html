@@ -1,17 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/header :: header}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>SkillBridge - Perfil</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #f4f7fc; color: #333; margin: 0; padding: 0; }
+        header { background-color: #2a4d69; color: white; padding: 20px 0; text-align: center; }
+        header h1 { margin: 0; font-size: 36px; }
+        header p { font-size: 18px; margin-top: 10px; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn { padding: 14px 30px; margin: 10px; background-color: #4CAF50; color: white; border-radius: 6px; text-decoration: none; display: inline-block; font-size: 16px; transition: background-color 0.3s ease; }
+        .btn:hover { background-color: #45a049; }
+        .btn-danger { background-color: #d9534f; }
+        .btn-danger:hover { background-color: #b52b27; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        table th, table td { padding: 12px 20px; text-align: left; border-bottom: 1px solid #f1f1f1; }
+        table th { background-color: #2a4d69; color: white; font-size: 18px; }
+        table tr:hover { background-color: #f7f7f7; }
+        table td { color: #555; }
+        footer { background-color: #2a4d69; color: white; padding: 15px 0; text-align: center; position: fixed; width: 100%; bottom: 0; }
+    </style>
+</head>
 <body>
-<div th:replace="~{fragments/menu :: menu}"></div>
-<h1>Meu Perfil</h1><p>Nome: <span th:text="${perfil.usuario.nome}"></span></p><p>Email: <span th:text="${perfil.usuario.email}"></span></p><p>Resumo: <span th:text="${perfil.resumo}"></span></p>
-<h2>Competências:</h2><table>
-    <tr>
-        <th>Competência</th>
-        <th>Nível</th>
-    </tr>
-    <tr th:each="uc : ${perfil.usuarioCompetencias}">
-        <td th:text="${uc.competencia.nome}"></td>
-        <td th:text="${uc.nivelPontuacao}"></td>
-    </tr></table>
-<div th:replace="~{fragments/footer :: footer}"></div>
+
+<header>
+    <h1>Bem-vindo ao SkillBridge</h1>
+    <p>Conectando talentos às melhores oportunidades</p>
+</header>
+
+<div class="container" sec:authorize="isAuthenticated()">
+
+    <h1>Olá, <span th:text="${usuario.nome}">Usuário</span>!</h1>
+
+    <!-- Melhor vaga -->
+    <div th:if="${melhorVaga != null}">
+        <h2>Melhor vaga sugerida</h2>
+        <p>
+            <strong th:text="${melhorVaga.vagaNome}">Título da vaga</strong>
+            (<span th:text="${melhorVaga.compatibilidade}">0</span>% compatível)
+        </p>
+        <p th:text="${melhorVaga.descricao != null ? melhorVaga.descricao : 'Aguardando descrição...'}">Descrição da vaga</p>
+    </div>
+    <div th:if="${melhorVaga == null}">
+        <p style="color: #d9534f;">Nenhuma recomendação disponível no momento.</p>
+    </div>
+
+    <!-- Todas as vagas -->
+    <h2>Suas vagas</h2>
+    <table th:if="${todasVagas != null and !todasVagas.isEmpty()}">
+        <tr>
+            <th>Vaga</th>
+            <th>Compatibilidade</th>
+        </tr>
+        <tr th:each="vaga : ${todasVagas}">
+            <td th:text="${vaga.vagaNome}">Vaga X</td>
+            <td th:text="${vaga.compatibilidade} + '%'">0%</td>
+        </tr>
+    </table>
+    <p th:if="${todasVagas == null or todasVagas.isEmpty()}" style="color: #d9534f;">
+        Nenhuma vaga encontrada.
+    </p>
+
+    <a class="btn" th:href="@{/view/analise}">Ver análise completa</a>
+</div>
+
+<footer>
+    <p>&copy; 2025 SkillBridge - Todos os direitos reservados.</p>
+</footer>
+
 </body>
 </html>

@@ -33,6 +33,7 @@ public class UserController {
     // Exibe ou edita o perfil do usuário
     @GetMapping("/perfil")
     public String perfil(Model model) {
+        // Pega o usuário logado
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String email = userDetails.getUsername();
@@ -44,11 +45,12 @@ public class UserController {
 
         model.addAttribute("usuario", usuario);
 
-        // Adiciona vagas para o Thymeleaf
-        IoTResponseWrapperDTO wrapper = analiseService.buscarAnaliseLocal();
-        // Busca o candidato correspondente ao usuário logado
+        // Busca e sincroniza análise para gerar descrições via IA
+        IoTResponseWrapperDTO wrapper = analiseService.sincronizarAnalise();
+
+        // Busca o candidato correspondente ao usuário logado pelo ID
         wrapper.getCandidatos().stream()
-                .filter(c -> c.getNome().equals(usuario.getNome()))
+                .filter(c -> c.getId().equals(usuario.getId()))
                 .findFirst()
                 .ifPresent(candidato -> {
                     model.addAttribute("melhorVaga", candidato.getMelhorVaga());
@@ -57,6 +59,7 @@ public class UserController {
 
         return "user/perfil";
     }
+
 
     // Outros métodos de ações gerais do usuário, como editar perfil ou informações pessoais
 }

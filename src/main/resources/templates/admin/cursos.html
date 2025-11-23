@@ -1,27 +1,95 @@
 <div class="container">
     <h1>Cursos</h1>
     <a class="btn" th:href="@{/admin/cursos/novo}">Novo Curso</a>
+
     <table>
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Descrição</th>
-                <th>Duração (h)</th>
-                <th>Ações</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Duração (h)</th>
+            <th>Ações</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="curso : ${cursos}">
-                <td th:text="${curso.id}">1</td>
-                <td th:text="${curso.titulo}">Curso</td>
-                <td th:text="${curso.descricao}">Descrição</td>
-                <td th:text="${curso.duracaoHoras}">10</td>
-                <td>
-                    <a class="btn" th:href="@{'/admin/cursos/editar/' + ${curso.id}}">Editar</a>
-                    <a class="btn btn-danger" th:href="@{'/admin/cursos/deletar/' + ${curso.id}}">Deletar</a>
-                </td>
-            </tr>
+        <tr th:each="curso : ${cursos}">
+            <td th:text="${curso.id}">1</td>
+            <td th:text="${curso.titulo}">Curso</td>
+            <td th:text="${curso.descricao}">Descrição</td>
+            <td th:text="${curso.duracaoHoras}">10</td>
+            <td>
+                <a class="btn" th:href="@{'/admin/cursos/editar/' + ${curso.id}}">Editar</a>
+                <a class="btn btn-danger" th:href="@{'/admin/cursos/deletar/' + ${curso.id}}">Deletar</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f6fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        color: #2a4d69;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table th, table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #2a4d69;
+        color: white;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: white;
+        background-color: #4CAF50;
+        transition: 0.2s;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .btn:hover {
+        background-color: #3d8b40;
+    }
+
+    .btn-danger {
+        background-color: #d9534f;
+    }
+
+    .btn-danger:hover {
+        background-color: #b52b27;
+    }
+</style>

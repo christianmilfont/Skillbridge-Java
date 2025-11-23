@@ -14,44 +14,46 @@
     </style>
 </head>
 <body>
-    <h1>Análise de Compatibilidade</h1>
+<h1>Análise de Compatibilidade</h1>
 
-    <div th:each="candidato : ${candidatos}">
-        <h2 th:text="${candidato.nome} + ' (ID: ' + ${candidato.id} + ')'"></h2>
+<div th:each="candidato : ${candidatos}">
+    <h2 th:text="${candidato.nome} + ' (ID: ' + ${candidato.id} + ')'"></h2>
 
-        <h3>Melhor Vaga</h3>
-        <table>
-            <tr>
-                <th>Vaga ID</th>
-                <th>Título</th>
-                <th>Compatibilidade</th>
-            </tr>
-            <tr class="melhor">
-                <td th:text="${candidato.melhor_vaga.vaga_id}"></td>
-                <td th:text="${candidato.melhor_vaga.vaga_nome}"></td>
-                <td th:text="${candidato.melhor_vaga.compatibilidade + '%'}"></td>
-            </tr>
-        </table>
-        <h3>Descrição da Compatibilidade</h3>
-        <table>
-            <tr>
-                <th>Descrição</th>
-            </tr>
-        <p th:text="${candidato.melhor_vaga.descricao}"></p>
-        </table>
-        <h3>Todas as Vagas</h3>
-        <table>
-            <tr>
-                <th>Vaga ID</th>
-                <th>Título</th>
-                <th>Compatibilidade</th>
-            </tr>
-            <tr th:each="vaga : ${candidato.todas_as_vagas}">
-                <td th:text="${vaga.vaga_id}"></td>
-                <td th:text="${vaga.vaga_nome}"></td>
-                <td th:text="${vaga.compatibilidade + '%'}"></td>
-            </tr>
-        </table>
-    </div>
+    <h3>Melhor Vaga</h3>
+    <table>
+        <tr>
+            <th>Vaga ID</th>
+            <th>Título</th>
+            <th>Compatibilidade</th>
+            <th>Descrição</th>
+        </tr>
+        <tr class="melhor" th:if="${candidato.melhorVaga != null}">
+            <td th:text="${candidato.melhorVaga.vagaId}"></td>
+            <td th:text="${candidato.melhorVaga.vagaNome}"></td>
+            <td th:text="${candidato.melhorVaga.compatibilidade + '%'}"></td>
+            <td th:text="${candidato.melhorVaga.descricao}"></td>
+        </tr>
+        <tr th:if="${candidato.melhorVaga == null}">
+            <td colspan="4">Nenhuma melhor vaga disponível.</td>
+        </tr>
+    </table>
+
+    <h3>Todas as Vagas</h3>
+    <table th:if="${candidato.todasAsVagas != null and !candidato.todasAsVagas.isEmpty()}">
+        <tr>
+            <th>Vaga ID</th>
+            <th>Título</th>
+            <th>Compatibilidade</th>
+        </tr>
+        <tr th:each="vaga : ${candidato.todasAsVagas}">
+            <td th:text="${vaga.vagaId}"></td>
+            <td th:text="${vaga.vagaNome}"></td>
+            <td th:text="${vaga.compatibilidade + '%'}"></td>
+        </tr>
+    </table>
+    <p th:if="${candidato.todasAsVagas == null or candidato.todasAsVagas.isEmpty()}">
+        Nenhuma vaga encontrada para este candidato.
+    </p>
+</div>
 </body>
 </html>

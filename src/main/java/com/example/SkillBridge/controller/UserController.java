@@ -1,7 +1,9 @@
 package com.example.SkillBridge.controller;
 
+import com.example.SkillBridge.dto.IoTResponseWrapperDTO;
 import com.example.SkillBridge.model.Usuario;
 import com.example.SkillBridge.repository.CompatibilidadeRepository;
+import com.example.SkillBridge.service.AnaliseService;
 import com.example.SkillBridge.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UsuarioService usuarioService;
-
+    private final AnaliseService analiseService;
     @Autowired
-    public UserController(UsuarioService usuarioService) {
+    public UserController(UsuarioService usuarioService, AnaliseService analiseService) {
         this.usuarioService = usuarioService;
+        this.analiseService = analiseService;
     }
         @GetMapping("/lista")
         public String listarUsuarios(Model model) {
@@ -30,18 +33,29 @@ public class UserController {
     // Exibe ou edita o perfil do usuário
     @GetMapping("/perfil")
     public String perfil(Model model) {
-        // Recupera o usuário logado
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String email = userDetails.getUsername();
         Usuario usuario = usuarioService.buscarPorEmail(email);
 
         if (usuario == null) {
-            return "error/404"; // Se o usuário não for encontrado, mostra a página de erro
+            return "error/404";
         }
 
         model.addAttribute("usuario", usuario);
-        return "user/perfil";  // Exibe o template do perfil
+
+        // Adiciona vagas para o Thymeleaf
+        IoTResponseWrapperDTO wrapper = analiseService.buscarAnaliseLocal();
+        // Busca o candidato correspondente ao usuário logado
+        wrapper.getCandidatos().stream()
+                .filter(c -> c.getNome().equals(usuario.getNome()))
+                .findFirst()
+                .ifPresent(candidato -> {
+                    model.addAttribute("melhorVaga", candidato.getMelhorVaga());
+                    model.addAttribute("todasVagas", candidato.getTodasAsVagas());
+                });
+
+        return "user/perfil";
     }
 
     // Outros métodos de ações gerais do usuário, como editar perfil ou informações pessoais

@@ -89,37 +89,6 @@ public String deletarVaga(@PathVariable Long id) {
     return "redirect:/admin/vagas";
 }
 
-// ===== Cursos =====
-@GetMapping("/cursos")public String listarCursos(Model model) {
-List<Curso> cursos = cursoService.listar();
-        model.addAttribute("cursos", cursos);
-        return "admin/cursos";
-                }
-
-@GetMapping("/cursos/novo")
-public String novoCursoForm(Model model) {
-    model.addAttribute("curso", new Curso());
-    return "admin/curso-form";
-}
-
-@PostMapping("/cursos/salvar")
-public String salvarCurso(@ModelAttribute Curso curso) {
-    cursoService.salvar(curso);
-    return "redirect:/admin/cursos";
-}
-
-@GetMapping("/cursos/editar/{id}")
-public String editarCurso(@PathVariable Long id, Model model) {
-    Curso curso = cursoService.buscarPorId(id);
-    model.addAttribute("curso", curso);
-    return "admin/curso-form";
-}
-
-@GetMapping("/cursos/deletar/{id}")
-public String deletarCurso(@PathVariable Long id) {
-    cursoService.deletar(id);
-    return "redirect:/admin/cursos";
-}
 
 // ===== Competências =====
 @GetMapping("/competencias")

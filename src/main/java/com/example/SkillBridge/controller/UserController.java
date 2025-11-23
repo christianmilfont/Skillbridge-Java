@@ -33,7 +33,7 @@ public class UserController {
     // Exibe ou edita o perfil do usuário
     @GetMapping("/perfil")
     public String perfil(Model model) {
-        // Pega o usuário logado
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String email = userDetails.getUsername();
@@ -45,12 +45,10 @@ public class UserController {
 
         model.addAttribute("usuario", usuario);
 
-        // Busca e sincroniza análise para gerar descrições via IA
         IoTResponseWrapperDTO wrapper = analiseService.sincronizarAnalise();
 
-        // Busca o candidato correspondente ao usuário logado pelo ID
         wrapper.getCandidatos().stream()
-                .filter(c -> c.getId().equals(usuario.getId()))
+                .filter(c -> c.getNome().equalsIgnoreCase(usuario.getNome()))
                 .findFirst()
                 .ifPresent(candidato -> {
                     model.addAttribute("melhorVaga", candidato.getMelhorVaga());

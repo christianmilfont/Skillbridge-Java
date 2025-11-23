@@ -1,4 +1,7 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: header"><body><div th:replace="fragments/menu :: menu"></div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/header :: header}">
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
 <h1>Meu Perfil</h1><p>Nome: <span th:text="${perfil.usuario.nome}"></span></p><p>Email: <span th:text="${perfil.usuario.email}"></span></p><p>Resumo: <span th:text="${perfil.resumo}"></span></p>
 <h2>Competências:</h2><table>
     <tr>
@@ -9,4 +12,6 @@
         <td th:text="${uc.competencia.nome}"></td>
         <td th:text="${uc.nivelPontuacao}"></td>
     </tr></table>
-<div th:replace="fragments/footer :: footer"></div></body></html>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

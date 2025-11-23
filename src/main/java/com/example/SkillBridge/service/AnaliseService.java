@@ -36,10 +36,10 @@ public class AnaliseService {
                 dto.setMelhor_vaga(candidato.getMelhor_vaga());
                 dto.setTodas_as_vagas(candidato.getTodas_as_vagas());
 
-                // ✅ Gerar descrição de compatibilidade para a melhor vaga
+                // Gerar descrição de compatibilidade para a melhor vaga
                 if (candidato.getMelhor_vaga() != null) {
                     String descricao = aiService.gerarDescricaoMelhorVaga(
-                        candidato.getMelhor_vaga().getTitulo(), 
+                        candidato.getMelhor_vaga().getVaga_nome(), 
                         candidato.getMelhor_vaga().getCompatibilidade()
                     );
                     candidato.getMelhor_vaga().setDescricao(descricao); // se MelhorVagaDTO tiver campo descricao

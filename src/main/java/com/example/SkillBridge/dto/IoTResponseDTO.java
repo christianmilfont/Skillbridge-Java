@@ -9,5 +9,7 @@ public class IoTResponseDTO {
     private String nome;                    
 
     private MelhorVagaDTO melhor_vaga;
+    private String descricao;
+
     private List<VagaCompatibilidadeDTO> todas_as_vagas;
 }

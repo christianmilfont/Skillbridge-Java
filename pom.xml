@@ -28,7 +28,7 @@
             <dependency>
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-bom</artifactId>
-                <version>1.0.0-M6</version>
+                <version>1.0.0-M4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -128,11 +128,17 @@
             <artifactId>spring-ai-core</artifactId>
         </dependency>
 
-        <!-- SPRING AI + Google -->
+        <!-- SPRING AI + OpenIA -->
        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+		</dependency>
+        <!-- Spring AI + Vertex AI -->
+        <dependency>
+			<groupId>com.knuddels</groupId>
+			<artifactId>jtokkit</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 
     </dependencies>
 

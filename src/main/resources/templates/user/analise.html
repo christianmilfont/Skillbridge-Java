@@ -32,7 +32,13 @@
                 <td th:text="${candidato.melhor_vaga.compatibilidade + '%'}"></td>
             </tr>
         </table>
-
+        <h3>Descrição da Compatibilidade</h3>
+        <table>
+            <tr>
+                <th>Descrição</th>
+            </tr>
+        <p th:text="${candidato.melhor_vaga.descricao}"></p>
+        </table>
         <h3>Todas as Vagas</h3>
         <table>
             <tr>

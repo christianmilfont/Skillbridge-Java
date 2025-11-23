@@ -1,35 +1,55 @@
 package com.example.SkillBridge.service;
 
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AIService {
+public class AnaliseService {
 
-    private final ChatModel chatModel;
+    private final PythonIntegrationService pythonService;
+    private final IoTService ioTService;
+    private final AIService aiService;
 
-    public AIService(ChatModel chatModel) {
-        this.chatModel = chatModel;
+    public AnaliseService(PythonIntegrationService pythonService,
+                          IoTService ioTService,
+                          AIService aiService) {
+        this.pythonService = pythonService;
+        this.ioTService = ioTService;
+        this.aiService = aiService;
     }
 
-    public String gerarDescricaoMelhorVaga(String vagaTitulo, int compatibilidade) {
+    public IoTResponseWrapperDTO buscarAnalisePython() {
+        return pythonService.buscarAnaliseDoPython();
+    }
 
-        String promptText = """
-                Explique de forma amigável por que esta vaga é adequada ao usuário.
-                Vaga: %s
-                Compatibilidade: %d%%
-                Responda em no máximo 6 linhas.
-                """.formatted(vagaTitulo, compatibilidade);
+    public void sincronizarAnalisePython() {
+        IoTResponseWrapperDTO wrapper = pythonService.buscarAnaliseDoPython();
 
-        Prompt prompt = new Prompt(promptText);
+        if (wrapper != null && wrapper.getCandidatos() != null) {
 
-        ChatResponse response = chatModel.call(prompt);
+            for (CandidatoDTO candidato : wrapper.getCandidatos()) {
 
-        return response
-                .getResult()
-                .getOutput()
-                .getText();
+                IoTResponseDTO dto = new IoTResponseDTO();
+                dto.setId(candidato.getId());
+                dto.setNome(candidato.getNome());
+                dto.setMelhor_vaga(candidato.getMelhor_vaga());
+                dto.setTodas_as_vagas(candidato.getTodas_as_vagas());
+
+                // ✔ Geração de descrição pela IA
+                if (candidato.getMelhor_vaga() != null) {
+
+                    String titulo = candidato.getMelhor_vaga().getTitulo(); // CONFIRMAR
+                    int compatibilidade = candidato.getMelhor_vaga().getCompatibilidade();
+
+                    String descricao = aiService.gerarDescricaoMelhorVaga(titulo, compatibilidade);
+
+                    // só funciona se seu DTO tiver esse setter
+                    candidato.getMelhor_vaga().setDescricao(descricao);
+                }
+
+                ioTService.processarDadosDoIoT(dto);
+            }
+        }
     }
 }
+

@@ -5,4 +5,5 @@ import lombok.Data;
     private Long vaga_id;
     private String vaga_nome;
     private Integer compatibilidade;
+    private String descricao;
 }

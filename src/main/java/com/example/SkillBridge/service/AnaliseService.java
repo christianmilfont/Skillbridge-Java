@@ -36,12 +36,12 @@ public class AnaliseService {
                 dto.setId(candidato.getId());
                 dto.setNome(candidato.getNome());
                 dto.setMelhorVaga(candidato.getMelhorVaga());
-                dto.setTodas_as_vagas(candidato.getTodas_as_vagas());
+                dto.setTodasAsVagas(candidato.getTodasAsVagas());
 
                 // ✔ Geração de descrição pela IA
                 if (candidato.getMelhorVaga() != null) {
 
-                    String titulo = candidato.getMelhorVaga().getTitulo();
+                    String titulo = candidato.getMelhorVaga().getVagaNome();
                     int compatibilidade = candidato.getMelhorVaga().getCompatibilidade();
 
                     String descricao = aiService.gerarDescricaoMelhorVaga(titulo, compatibilidade);

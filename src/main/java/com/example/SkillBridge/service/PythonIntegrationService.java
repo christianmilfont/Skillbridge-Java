@@ -11,7 +11,7 @@ public class PythonIntegrationService {
 
     public PythonIntegrationService() {
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:5062") // URL do Flask
+                .baseUrl("") // URL do Flask
                 .build();
     }
 

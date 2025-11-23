@@ -33,9 +33,9 @@ import java.time.LocalDateTime;
         compatibilidadeRepository.deleteByUsuarioId(usuario.getId());
 
         // Salva todas as compatibilidades
-         for (VagaCompatibilidadeDTO v : dto.getTodas_as_vagas()) {
+         for (VagaCompatibilidadeDTO v : dto.getTodasAsVagas()) {
 
-        Vaga vaga = vagaRepository.findById(v.getVaga_id()).orElse(null);
+        Vaga vaga = vagaRepository.findById(v.getVagaId()).orElse(null);
 
         if (vaga == null) {
             System.out.println("Vaga inexistente no MySQL: " + v.getVagaId());

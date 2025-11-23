@@ -8,25 +8,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnaliseService {
 
-    private final PythonIntegrationService pythonService;
     private final IoTService ioTService;
     private final AIService aiService;
 
-    public AnaliseService(PythonIntegrationService pythonService,
-                          IoTService ioTService,
-                          AIService aiService) {
-        this.pythonService = pythonService;
+    public AnaliseService(IoTService ioTService, AIService aiService) {
         this.ioTService = ioTService;
         this.aiService = aiService;
     }
 
-    public IoTResponseWrapperDTO buscarAnalisePython() {
-        return pythonService.buscarAnaliseDoPython();
+    public IoTResponseWrapperDTO buscarAnaliseLocal() {
+        return ioTService.buscarDadosDoIoT(); // agora os dados vêm do próprio IoTService
     }
 
-    public IoTResponseWrapperDTO sincronizarAnalisePython() {
+    public IoTResponseWrapperDTO sincronizarAnalise() {
 
-        IoTResponseWrapperDTO wrapper = pythonService.buscarAnaliseDoPython();
+        IoTResponseWrapperDTO wrapper = ioTService.buscarDadosDoIoT();
 
         if (wrapper != null && wrapper.getCandidatos() != null) {
 
@@ -38,7 +34,7 @@ public class AnaliseService {
                 dto.setMelhorVaga(candidato.getMelhorVaga());
                 dto.setTodasAsVagas(candidato.getTodasAsVagas());
 
-                // ✔ Geração de descrição pela IA
+                // Geração de descrição pela IA
                 if (candidato.getMelhorVaga() != null) {
 
                     String titulo = candidato.getMelhorVaga().getVagaNome();

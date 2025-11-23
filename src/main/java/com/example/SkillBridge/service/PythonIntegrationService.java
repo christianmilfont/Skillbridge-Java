@@ -1,3 +1,4 @@
+/*
 package com.example.SkillBridge.service;
 
 import com.example.SkillBridge.dto.IoTResponseWrapperDTO;
@@ -7,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class PythonIntegrationService {
 
-    private final WebClient webClient;
+
 
     public PythonIntegrationService() {
         this.webClient = WebClient.builder()
@@ -23,3 +24,4 @@ public class PythonIntegrationService {
                 .block(); // bloqueia até receber a resposta
     }
 }
+*/

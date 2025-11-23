@@ -13,4 +13,10 @@ public class VagaCompatibilidadeDTO {
     private String vagaNome;
 
     private Integer compatibilidade;
+    public VagaCompatibilidadeDTO(Long vagaId, String vagaNome, int compatibilidade) {
+        this.vagaId = vagaId;
+        this.vagaNome = vagaNome;
+        this.compatibilidade = compatibilidade;
+    }
+
 }

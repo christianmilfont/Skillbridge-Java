@@ -11,7 +11,7 @@ public class CandidatoDTO {
     private String nome;
 
     @JsonProperty("melhor_vaga")
-    private MelhorVagaDTO melhorVaga;
+    private VagaCompatibilidadeDTO  melhorVaga;
 
     @JsonProperty("todas_as_vagas")
     private List<VagaCompatibilidadeDTO> todasAsVagas;

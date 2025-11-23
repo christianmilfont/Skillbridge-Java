@@ -19,7 +19,7 @@ public class AnaliseViewController {
 
     @GetMapping("/analise")
     public String viewAnalise(Model model) {
-        IoTResponseWrapperDTO wrapper = analiseService.sincronizarAnalisePython(); // chama Flask
+        IoTResponseWrapperDTO wrapper = analiseService.buscarAnaliseLocal(); // chama Flask
         model.addAttribute("candidatos", wrapper.getCandidatos());
         return "user/analise"; // corresponde ao arquivo analise.html em resources/templates
     }

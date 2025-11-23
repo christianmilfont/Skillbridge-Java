@@ -36,7 +36,7 @@
             <td th:text="${usuario.nome}">Nome</td>
             <td th:text="${usuario.email}">email@dominio.com</td>
             <td th:text="${usuario.role}">ADMIN</td>
-            <td th:text="${usuario.criadoEm != null ? #dates.format(usuario.criadoEm, 'dd/MM/yyyy HH:mm') : ''}"></td>
+            <td th:text="${usuario.criadoEm != null ? #temporals.format(usuario.criadoEm, 'dd/MM/yyyy HH:mm') : ''}"></td>
         </tr>
         </tbody>
     </table>

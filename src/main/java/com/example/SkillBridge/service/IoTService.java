@@ -1,5 +1,6 @@
 package com.example.SkillBridge.service;
 import com.example.SkillBridge.dto.IoTResponseDTO;
+import com.example.SkillBridge.dto.CandidatoDTO;
 import com.example.SkillBridge.dto.VagaCompatibilidadeDTO;
 import com.example.SkillBridge.model.Compatibilidade;
 import com.example.SkillBridge.model.Usuario;
@@ -37,7 +38,7 @@ import java.time.LocalDateTime;
         Vaga vaga = vagaRepository.findById(v.getVaga_id()).orElse(null);
 
         if (vaga == null) {
-            System.out.println("Vaga inexistente no MySQL: " + v.getVaga_id());
+            System.out.println("Vaga inexistente no MySQL: " + v.getVagaId());
             continue;
         }
 
@@ -54,7 +55,7 @@ import java.time.LocalDateTime;
     // Marca a melhor vaga
     compatibilidadeRepository.findByUsuarioIdAndVagaId(
                 dto.getId(),
-                        dto.getMelhor_vaga().getVaga_id()
+                        dto.getMelhorVaga().getVagaId()
         ).ifPresent(c -> {
         c.setMelhor(true);
         compatibilidadeRepository.save(c);

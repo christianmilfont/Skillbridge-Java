@@ -1,15 +1,21 @@
 package com.example.SkillBridge.dto;
 
-import lombok.Data;
 import java.util.List;
-@Data 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
 public class IoTResponseDTO {
 
     private Long id;
-    private String nome;                    
+    private String nome;
 
-    private MelhorVagaDTO melhor_vaga;
+    @JsonProperty("melhor_vaga")
+    private MelhorVagaDTO melhorVaga;
+
     private String descricao;
 
-    private List<VagaCompatibilidadeDTO> todas_as_vagas;
+    @JsonProperty("todas_as_vagas")
+    private List<VagaCompatibilidadeDTO> todasAsVagas;
+
 }

@@ -39,13 +39,20 @@ public class AnaliseService {
                 dto.setTodasAsVagas(candidato.getTodasAsVagas());
 
                 // Geração de descrição pela IA
+                // Geração de descrição pela IA
                 String descricao = aiService.gerarDescricaoMelhorVaga(
                         melhor.getVagaNome(),
                         melhor.getCompatibilidade()
                 );
 
+
+        // salva a descrição também no objeto ORIGINAL usado pelo Thymeleaf
+                candidato.getMelhorVaga().setDescricao(descricao);
+
+        // salva no DTO interno (opcional)
                 melhor.setDescricao(descricao);
                 dto.setDescricao(descricao);
+
 
                 ioTService.processarDadosDoIoT(dto);
             }

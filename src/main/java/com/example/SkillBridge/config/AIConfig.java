@@ -1,4 +1,4 @@
-package com.fiap.chatguia;
+package com.example.SkillBridge.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;
@@ -25,8 +25,8 @@ Regras:
 """;
 
     @Bean
-    public ChatClient chatClient(ChatClient.Builder chaBuilder) {
-        return chaBuilder
+    public ChatClient chatClient(ChatClient.Builder builder) {
+        return builder
                 .defaultSystem(DEFAULT_SYSTEM)
                 .build();
     }
